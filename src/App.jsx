@@ -1,8 +1,13 @@
 import React from 'react';
+import TeslaBattery from './containers/TeslaBattery';
+import Header from './components/Header';
 import './App.css';
 
 const App = () => (
-  <h1>Range per charge</h1>
+  <div>
+    <Header />
+    <TeslaBattery />
+  </div>
 );
 
 export default App;
