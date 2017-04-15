@@ -5,6 +5,7 @@ import TeslaNotice from '../../components/TeslaNotice';
 import TeslaCar from '../../components/TeslaCar';
 import TeslaStats from '../../components/TeslaStats';
 import TeslaCounter from '../../components/TeslaCounter';
+import TeslaClimate from '../../components/TeslaClimate';
 
 const carModels = ['60', '60D', '75', '75D', '90D', 'P100D'];
 
@@ -100,6 +101,12 @@ class TeslaBattery extends Component {
     }
   }
 
+  handleChangeClimate() {
+    const config = { ...this.state.config };
+    config.climate = !this.state.config.climate;
+    this.setState(() => ({ config }));
+  }
+
   render() {
     const { carStats, config } = this.state;
     const { speed, temperature, climate, wheelSize } = config;
@@ -121,6 +128,11 @@ class TeslaBattery extends Component {
               initValues={this.props.counterDefaultVal.temperature}
               increment={(e, title) => this.increment(e, title)}
               decrement={(e, title) => this.decrement(e, title)}
+            />
+            <TeslaClimate
+              value={climate}
+              limit={temperature > 10}
+              handleChangeClimate={() => this.handleChangeClimate()}
             />
           </div>
         </div>

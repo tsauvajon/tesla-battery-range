@@ -11,7 +11,7 @@ const TeslaCounter = props => (
     <div className="tesla-counter_container cf">
       <div className="tesla-counter_item">
         <p className="tesla-counter_number">
-          {Math.ceil(props.currentValue * mToKm)}
+          {props.initValues.title === 'Speed' ? Math.ceil(props.currentValue * mToKm) : props.currentValue}
           <span>
             {props.initValues.unit}
           </span>
