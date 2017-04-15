@@ -11,6 +11,7 @@ const TeslaClimate = ({ value, limit, handleChangeClimate }) => (
       <input
         type="checkbox"
         name="climate"
+        id="climate"
         checked={value}
         onChange={() => handleChangeClimate()}
       />

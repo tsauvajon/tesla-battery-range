@@ -6,6 +6,7 @@ import TeslaCar from '../../components/TeslaCar';
 import TeslaStats from '../../components/TeslaStats';
 import TeslaCounter from '../../components/TeslaCounter';
 import TeslaClimate from '../../components/TeslaClimate';
+import TeslaWheels from '../../components/TeslaWheels';
 
 const carModels = ['60', '60D', '75', '75D', '90D', 'P100D'];
 
@@ -43,16 +44,19 @@ class TeslaBattery extends Component {
 
   statsUpdate() {
     const carStats = calculateStats(carModels, this.state.config);
-    this.setState({
+    this.setState(() => ({
       carStats,
-    });
+    }));
   }
 
   updateCounterState(title, newValue) {
     const config = { ...this.state.config };
     const field = title === 'Speed' ? 'speed' : 'temperature';
     config[field] = newValue;
-    this.setState(() => ({ config }));
+    this.setState(() => ({
+      config,
+    }),
+    () => this.statsUpdate());
   }
 
   decrement(e, title) {
@@ -104,7 +108,20 @@ class TeslaBattery extends Component {
   handleChangeClimate() {
     const config = { ...this.state.config };
     config.climate = !this.state.config.climate;
-    this.setState(() => ({ config }));
+    this.setState(() => ({
+      config,
+    }),
+    () => this.statsUpdate());
+  }
+
+  handleChangeWheels(size) {
+    this.setState(() => ({
+      config: {
+        ...this.state.config,
+        wheelSize: size,
+      },
+    }),
+    () => this.statsUpdate());
   }
 
   render() {
@@ -135,6 +152,10 @@ class TeslaBattery extends Component {
               handleChangeClimate={() => this.handleChangeClimate()}
             />
           </div>
+          <TeslaWheels
+            wheelSize={wheelSize}
+            handleChangeWheels={size => this.handleChangeWheels(size)}
+          />
         </div>
         <TeslaNotice />
       </form>
